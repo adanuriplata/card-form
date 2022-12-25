@@ -9,7 +9,7 @@ export interface creditCard {
 }
 
 const initialStateCard: creditCard = {
-  numCard: '0000000000000000',
+  numCard: '',
   name: 'fulanito de tal',
   ccv: '000',
   expiration: '00/00',
@@ -37,31 +37,64 @@ export const FormCard = (): JSX.Element => {
   return (
     <div>
       <Card card={card} />
-      <div className=" mt-10 ">
-        <div>
-          <label htmlFor="">
-            Number card:
-            <input onChange={(e) => hanfleChangeNumCard(e)} type="text" />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="">
-            Name:
-            <input onChange={(e) => handleChangeName(e)} type="text" />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="">
-            Expiration
-            <input onChange={(e) => handleChangeExpiration(e)} type="text" />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="">
-            CCV
-            <input onChange={(e) => handleChangeCcv(e)} type="text" />
-          </label>
-        </div>
+      <div className="w-full max-w-xs mt-10 ">
+        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div className="mb-6">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor=""
+            >
+              Number card:
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => hanfleChangeNumCard(e)}
+                type="text"
+              />
+            </label>
+          </div>
+          <div className="mb-6">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor=""
+            >
+              Name:
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => handleChangeName(e)}
+                type="text"
+              />
+            </label>
+          </div>
+          <div className="mb-6">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor=""
+            >
+              Expiration
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => handleChangeExpiration(e)}
+                type="text"
+              />
+            </label>
+          </div>
+          <div className="mb-6">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor=""
+            >
+              CCV
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => handleChangeCcv(e)}
+                type="text"
+              />
+            </label>
+          </div>
+        </form>
+        <p class="text-center text-gray-500 text-xs">
+          &copy;2020 Acme Corp. All rights reserved.
+        </p>
       </div>
     </div>
   );
