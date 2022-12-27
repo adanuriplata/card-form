@@ -2,7 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.scss';
 import { FormCard } from '../components';
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <>
       <Head>

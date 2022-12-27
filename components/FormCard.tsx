@@ -17,6 +17,7 @@ const initialStateCard: creditCard = {
 
 export const FormCard = (): JSX.Element => {
   const [card, setCard] = useState<creditCard>(initialStateCard);
+  const [viewBack, setViewBack] = useState(false);
 
   const handleChangeName = (e: ChangeEvent<HTMLInputElement>): void => {
     setCard({ ...card, name: e.target.value });
@@ -35,8 +36,8 @@ export const FormCard = (): JSX.Element => {
   };
 
   return (
-    <div>
-      <Card card={card} />
+    <div className="max-w-md flex flex-wrap justify-center">
+      <Card card={card} viewBack={viewBack} />
       <div className="w-full max-w-xs mt-10 ">
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-6">
@@ -85,6 +86,8 @@ export const FormCard = (): JSX.Element => {
             >
               CCV
               <input
+                onFocus={() => setViewBack(true)}
+                onBlur={() => setViewBack(false)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 onChange={(e) => handleChangeCcv(e)}
                 type="text"
@@ -92,9 +95,16 @@ export const FormCard = (): JSX.Element => {
             </label>
           </div>
         </form>
-        <p class="text-center text-gray-500 text-xs">
-          &copy;2020 Acme Corp. All rights reserved.
-        </p>
+        <div className="footer text-center text-gray-900 text-xs">
+          <h3>Built and Design 💪🏾</h3>
+          <p>
+            <a href="https://twitter.com/adanuriplata">👉 @AdanUriPlata </a>
+            <a href="https://adanplata.com">👉 adanuriplata.com </a>
+            <a href="https://github.com/adanuriplata/passwordGenerator">
+              👉 RepoGithub{' '}
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
