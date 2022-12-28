@@ -19,42 +19,50 @@ const initialStateCard: creditCard = {
 };
 
 export const FormCard = (): JSX.Element => {
+  const [loading, setLoading] = useState(false);
   const [viewBack, setViewBack] = useState(false);
-  const { handleChange, values, handleSubmit, errors, touched, handleBlur } =
-    useFormik({
-      initialValues: initialStateCard,
-      onSubmit: (values) => {
+  const {
+    handleChange,
+    values,
+    handleSubmit,
+    errors,
+    touched,
+    handleBlur,
+    resetForm,
+  } = useFormik({
+    initialValues: initialStateCard,
+    onSubmit: (values) => {
+      setLoading(true);
+      setTimeout(() => {
         console.log(values);
-      },
-      validationSchema: Yup.object({
-        numCard: Yup.string()
-          .matches(/^\d+$/, 'The field should have digits only')
-          .max(16, '*Should have 16 digits')
-          .min(16, '*Should have 16 digits')
-          .required('*Required'),
-        name: Yup.string()
-          .min(3, 'ingresa tu nombre')
-          .required('*Required')
-          .matches(/^[a-zA-Z\s]*$/, '*The field should have letters only'),
-        ccv: Yup.string()
-          .max(3, '*Should have 3 digits')
-          .required('Required')
-          .min(3, '*Should have 3 digits'),
-        expiration: Yup.string()
-          // .max(4, '*Should have 4')
-          // .min(4, '*Should have 4')
-          .matches(
-            /^((0?[1-9]|1[0-2])(2[2-9]))$/,
-            'set valid date - format MMYY'
-          )
-          .required('*Required'),
-      }),
-    });
+        setLoading(false);
+        resetForm();
+      }, 2000);
+    },
+    validationSchema: Yup.object({
+      numCard: Yup.string()
+        .matches(/^\d+$/, 'The field should have digits only')
+        .max(16, '*Should have 16 digits')
+        .min(16, '*Should have 16 digits')
+        .required('*Required'),
+      name: Yup.string()
+        .min(3, 'ingresa tu nombre')
+        .required('*Required')
+        .matches(/^[a-zA-Z\s]*$/, '*The field should have letters only'),
+      ccv: Yup.string()
+        .max(3, '*Should have 3 digits')
+        .required('Required')
+        .min(3, '*Should have 3 digits'),
+      expiration: Yup.string()
+        .matches(/^((0?[1-9]|1[0-2])(2[2-9]))$/, 'set valid date - format MMYY')
+        .required('*Required'),
+    }),
+  });
 
   return (
     <div className="max-w-md flex flex-wrap justify-center">
       <Card card={values} viewBack={viewBack} />
-      <div className="w-full max-w-xs mt-10 ">
+      <div className="w-full max-w-xs mt-20 ">
         <form
           onSubmit={handleSubmit}
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -160,24 +168,14 @@ export const FormCard = (): JSX.Element => {
           <button
             type="submit"
             className={`${
-              Object.keys(errors).length > 0
+              Object.keys(errors).length > 0 || loading
                 ? ' opacity-50 cursor-not-allowed '
                 : ''
             }bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded`}
           >
-            + Add Card
+            {loading ? 'saving...' : '+ Add Card'}
           </button>
         </form>
-        <div className="footer text-center text-gray-100 mt-12 text-xs">
-          <h3>Built and Design 💪🏾</h3>
-          <p>
-            <a href="https://twitter.com/adanuriplata">👉 @AdanUriPlata </a>
-            <a href="https://adanplata.com">👉 adanuriplata.com </a>
-            <a href="https://github.com/adanuriplata/passwordGenerator">
-              👉 RepoGithub{' '}
-            </a>
-          </p>
-        </div>
       </div>
     </div>
   );
