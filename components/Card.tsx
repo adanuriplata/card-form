@@ -18,7 +18,7 @@ const Card = ({ card, viewBack }: CardProps): JSX.Element => {
           viewBack ? ' [transform:rotateY(180deg)] ' : ''
         } relative h-full w-full transition-all duration-500 [transform-style:preserve-3d] `}
       >
-        <div className=" [backface-visibility:hidden] absolute inset-0 shadow-xl text-white py-4 px-3 bg-red-400 h-full w-full rounded-lg bg-gradient-to-r from-purple-600 to-blue-600">
+        <div className=" [backface-visibility:hidden] absolute inset-0 shadow-xl text-white p-4 bg-red-400 h-full w-full rounded-xl bg-gradient-to-r from-purple-600 to-blue-600">
           <div className="pb-3 pt-2 flex justify-between">
             <div>VISA</div>
             <div>{`>>>`}</div>
@@ -29,11 +29,23 @@ const Card = ({ card, viewBack }: CardProps): JSX.Element => {
           <div className="flex justify-between my-4 ">
             <div>
               <p className=" text-gray-300 text-xs"> Name</p>
-              <p className="uppercase text-xs">{card.name}</p>
+              <p className="uppercase text-xs">
+                {card.name.split('').length > 33
+                  ? card.name.split('').slice(0, 33)
+                  : card.name}
+              </p>
             </div>
             <div className="text-center">
               <p className=" text-gray-300 text-xs"> Expires</p>
-              <p className="uppercase text-xs">{card.expiration}</p>
+              <p className="uppercase text-xs">
+                {card.expiration
+                  .split('')
+                  .reduce((acc, current, currentIndex) => {
+                    if (currentIndex === 1)
+                      return acc.toString() + current.toString() + '/';
+                    return acc.toString() + current.toString();
+                  }, '')}
+              </p>
             </div>
           </div>
         </div>
